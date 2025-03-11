@@ -148,6 +148,31 @@ public class CalculatorSimulator : MonoBehaviour
         ActualizarUI();
     }
 
+    // Método para reiniciar el ciclo
+    public void ReiniciarCiclo()
+    {
+        // Reiniciar registros y contador
+        contadorPrograma = "0000";
+        registroDirecciones = "0000";
+        registroInstrucciones = "00000000";
+        registroDatos = "00000000";
+        registroEntrada = "0000";
+        acumulador = "00000000";
+
+        // Reiniciar memoria
+        memoria["0110"] = "00000000"; // Reiniciar dirección de guardar en memoria
+        memoria["0111"] = "00000000"; // Reiniciar dirección de finalizar
+
+        // Reiniciar variables de control
+        pasoActual = 0;
+        programaFinalizado = false;
+
+        // Actualizar la UI
+        ActualizarUI();
+        ActualizarTablaMemoria();
+        mensajeText.text = "Ciclo reiniciado.";
+    }
+
     // Método para decodificar la instrucción
     private string DecodificarInstruccion(string codigoOperacion)
     {
@@ -181,4 +206,6 @@ public class CalculatorSimulator : MonoBehaviour
         }
         tablaMemoriaText.text = tabla;
     }
+
+
 }

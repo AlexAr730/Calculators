@@ -19,6 +19,9 @@ public class VonNeumannUI : MonoBehaviour
     private int number2 = 0;
     private string[] memory;
     private bool numbersLoaded = false;
+    private enum ExecutionStep { Fetch, Decode, Execute }
+    private ExecutionStep step = ExecutionStep.Fetch;
+    private string currentInstruction = "";
 
     void Start()
     {
@@ -35,35 +38,55 @@ public class VonNeumannUI : MonoBehaviour
             return;
         }
 
-        if (pc < memory.Length)
+        if (pc >= memory.Length) return; // Detener si ya terminó
+
+        switch (step)
         {
-            string instruction = memory[pc];
-            switch (instruction)
-            {
-                case "LOAD R1":
-                    accumulator = number1;
-                    operation = "LOAD";
-                    break;
-                case "LOAD R2":
-                    accumulator = number2;
-                    operation = "LOAD";
-                    break;
-                case "ADD R1, R2":
-                    accumulator = number1 + number2;
-                    operation = "ADD";
-                    break;
-                case "STORE ACC":
-                    memory[3] = "RESULT = " + accumulator;
-                    operation = "STORE";
-                    break;
-                case "HALT":
-                    operation = "STOP";
-                    break;
-            }
-            pc++;
+            case ExecutionStep.Fetch:
+                currentInstruction = memory[pc]; // Obtener instrucción
+                operation = "FETCH";
+                step = ExecutionStep.Decode;
+                break;
+
+            case ExecutionStep.Decode:
+                operation = $"DECODE ({currentInstruction})"; // Decodificar instrucción
+                step = ExecutionStep.Execute;
+                break;
+
+            case ExecutionStep.Execute:
+                ExecuteInstruction(currentInstruction); // Ejecutar
+                step = ExecutionStep.Fetch;
+                pc++; // Mover al siguiente solo después de ejecutar
+                break;
         }
 
         UpdateUI();
+    }
+
+    void ExecuteInstruction(string instruction)
+    {
+        switch (instruction)
+        {
+            case "LOAD R1":
+                accumulator = number1;
+                operation = "EXECUTE LOAD R1";
+                break;
+            case "LOAD R2":
+                accumulator = number2;
+                operation = "EXECUTE LOAD R2";
+                break;
+            case "ADD R1, R2":
+                accumulator = number1 + number2;
+                operation = "EXECUTE ADD";
+                break;
+            case "STORE ACC":
+                memory[3] = "RESULT = " + accumulator;
+                operation = "EXECUTE STORE";
+                break;
+            case "HALT":
+                operation = "EXECUTE STOP";
+                break;
+        }
     }
 
     void ReadNumbers()

@@ -150,6 +150,7 @@ public class VonNeumannUI : MonoBehaviour
         }
     }
 
+    //Se leen los numeros insertados en el field y se carga memoria
     void ReadNumbers()
     {
         if (int.TryParse(InputNumber1.text, out number1) && int.TryParse(InputNumber2.text, out number2))

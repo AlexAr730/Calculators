@@ -538,7 +538,7 @@ GameObject:
   - component: {fileID: 501496431}
   - component: {fileID: 501496432}
   m_Layer: 5
-  m_Name: Flecha (3)
+  m_Name: Rdatos a R inst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -913,7 +913,7 @@ GameObject:
   - component: {fileID: 784752071}
   - component: {fileID: 784752070}
   m_Layer: 5
-  m_Name: Flecha (1)
+  m_Name: R direcciones a Memoria
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1716,7 +1716,7 @@ GameObject:
   - component: {fileID: 1103984031}
   - component: {fileID: 1103984032}
   m_Layer: 5
-  m_Name: Flecha
+  m_Name: contador a Rdir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2133,7 +2133,7 @@ GameObject:
   - component: {fileID: 1321611638}
   - component: {fileID: 1321611637}
   m_Layer: 5
-  m_Name: Flecha (5)
+  m_Name: Datos a R entrada
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2794,7 +2794,7 @@ GameObject:
   - component: {fileID: 1376375314}
   - component: {fileID: 1376375313}
   m_Layer: 5
-  m_Name: Flecha (7)
+  m_Name: inst a Rdir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3045,7 +3045,7 @@ GameObject:
   - component: {fileID: 1405420648}
   - component: {fileID: 1405420649}
   m_Layer: 5
-  m_Name: Flecha (4)
+  m_Name: R inst a decod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3580,7 +3580,7 @@ GameObject:
   - component: {fileID: 1578573996}
   - component: {fileID: 1578573995}
   m_Layer: 5
-  m_Name: Flecha (8)
+  m_Name: Acumulador a Datos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3713,7 +3713,7 @@ GameObject:
   - component: {fileID: 1588329071}
   - component: {fileID: 1588329072}
   m_Layer: 5
-  m_Name: Flecha (2)
+  m_Name: Memoria a Datos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4792,7 +4792,7 @@ GameObject:
   - component: {fileID: 1932831013}
   - component: {fileID: 1932831012}
   m_Layer: 5
-  m_Name: Flecha (6)
+  m_Name: R entrada a acumulador
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4925,7 +4925,7 @@ GameObject:
   - component: {fileID: 1990856642}
   - component: {fileID: 1990856641}
   m_Layer: 5
-  m_Name: Flecha (9)
+  m_Name: Datos a Memoria
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

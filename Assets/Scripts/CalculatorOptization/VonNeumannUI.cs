@@ -12,6 +12,14 @@ public class VonNeumannUI : MonoBehaviour
     public Button NextStepButton;
     public Button ResetButton;
 
+
+    public Image FetchArrow;
+    public Image DecodeArrow;
+    public Image LoadArrow;
+    public Image AddArrow;
+    public Image HaltArrow;
+
+
     private int pc = 0;
     private int accumulator = 0;
     private string operation = "None";
@@ -22,6 +30,7 @@ public class VonNeumannUI : MonoBehaviour
     private enum ExecutionStep { Fetch, Decode, Execute }
     private ExecutionStep step = ExecutionStep.Fetch;
     private string currentInstruction = "";
+    private ExecutionStep previousStep = ExecutionStep.Fetch;
 
     void Start()
     {
@@ -39,6 +48,9 @@ public class VonNeumannUI : MonoBehaviour
         }
 
         if (pc >= memory.Length) return; // Detener si ya terminó
+
+        // Guardar el paso actual antes de cambiarlo
+        previousStep = step;
 
         switch (step)
         {
@@ -61,7 +73,56 @@ public class VonNeumannUI : MonoBehaviour
         }
 
         UpdateUI();
+        UpdateArrows();
     }
+
+
+    void UpdateArrows()
+    {
+        // Desactivar todas las flechas
+        FetchArrow.enabled = false;
+        DecodeArrow.enabled = false;
+        LoadArrow.enabled = false;
+        AddArrow.enabled = false;
+        HaltArrow.enabled = false;
+
+        // Activar la flecha según el paso ANTERIOR
+        switch (previousStep)
+        {
+            case ExecutionStep.Fetch:
+                FetchArrow.enabled = true;
+                break;
+
+            case ExecutionStep.Decode:
+                DecodeArrow.enabled = true;
+                break;
+
+            case ExecutionStep.Execute:
+                // Activar solo la flecha correspondiente a la instrucción anterior
+                switch (currentInstruction)
+                {
+                    case "LOAD R1":
+                    case "LOAD R2":
+                        FetchArrow.enabled = true;
+                        LoadArrow.enabled = true;
+                        AddArrow.enabled = true;
+                        break;
+                    case "ADD R1, R2":
+                        LoadArrow.enabled = true;
+                        AddArrow.enabled = true;
+                        break;
+                    case "STORE ACC":
+                        LoadArrow.enabled = true;
+                        AddArrow.enabled = true;
+                        break;
+                    case "HALT":
+                        HaltArrow.enabled = true;
+                        break;
+                }
+                break;
+        }
+    }
+
 
     void ExecuteInstruction(string instruction)
     {

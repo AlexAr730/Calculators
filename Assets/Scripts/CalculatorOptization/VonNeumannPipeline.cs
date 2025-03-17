@@ -21,11 +21,11 @@ public class VonNeumannPipeline : MonoBehaviour
     private int pc = 0; // Contador de programa
     private int accumulator = 0; // Acumulador
     private string[] memory; // Memoria de instrucciones
-    private bool numbersLoaded = false; // Indica si los números se han cargado
-    private int[][] inputPairs; // Pares de números para las operaciones
+    private bool numbersLoaded = false; // Indica si los nï¿½meros se han cargado
+    private int[][] inputPairs; // Pares de nï¿½meros para las operaciones
 
     private enum ExecutionStep { Fetch, Decode, Execute, Done }
-    private ExecutionStep[] pipelineSteps; // Estado de cada instrucción en el pipeline
+    private ExecutionStep[] pipelineSteps; // Estado de cada instrucciï¿½n en el pipeline
     private string[] pipelineInstructions; // Instrucciones en el pipeline
     private int cycle = 0; // Ciclo actual del pipeline
     private bool isHalted = false; // Indica si el programa ha terminado
@@ -65,7 +65,7 @@ public class VonNeumannPipeline : MonoBehaviour
             }
         }
 
-        // Si hay más instrucciones, agregar una nueva al pipeline
+        // Si hay mï¿½s instrucciones, agregar una nueva al pipeline
         if (pc < memory.Length)
         {
             for (int i = 0; i < pipelineSteps.Length - 1; i++)
@@ -89,22 +89,22 @@ public class VonNeumannPipeline : MonoBehaviour
         switch (instruction)
         {
             case "LOAD R1":
-                accumulator = inputPairs[0][0]; // Cargar el primer número del primer par
+                accumulator = inputPairs[0][0]; // Cargar el primer nï¿½mero del primer par
                 break;
             case "LOAD R2":
-                accumulator = inputPairs[0][1]; // Cargar el segundo número del primer par
+                accumulator = inputPairs[0][1]; // Cargar el segundo nï¿½mero del primer par
                 break;
             case "ADD R1, R2":
-                accumulator = inputPairs[0][0] + inputPairs[0][1]; // Sumar los números del primer par
+                accumulator = inputPairs[0][0] + inputPairs[0][1]; // Sumar los nï¿½meros del primer par
                 break;
             case "LOAD R3":
-                accumulator = inputPairs[1][0]; // Cargar el primer número del segundo par
+                accumulator = inputPairs[1][0]; // Cargar el primer nï¿½mero del segundo par
                 break;
             case "LOAD R4":
-                accumulator = inputPairs[1][1]; // Cargar el segundo número del segundo par
+                accumulator = inputPairs[1][1]; // Cargar el segundo nï¿½mero del segundo par
                 break;
             case "ADD R3, R4":
-                accumulator = inputPairs[1][0] + inputPairs[1][1]; // Sumar los números del segundo par
+                accumulator = inputPairs[1][0] + inputPairs[1][1]; // Sumar los nï¿½meros del segundo par
                 break;
             case "STORE ACC":
                 if (accumulator == inputPairs[0][0] + inputPairs[0][1]) // Primera suma (primer par)
@@ -118,7 +118,7 @@ public class VonNeumannPipeline : MonoBehaviour
                 break;
             case "HALT":
                 isHalted = true; // Marcar que el programa ha terminado
-                Debug.Log("Ejecución finalizada.");
+                Debug.Log("Ejecucion finalizada.");
                 break;
         }
     }
@@ -153,7 +153,7 @@ public class VonNeumannPipeline : MonoBehaviour
         }
         else
         {
-            Debug.Log("Por favor, ingresa números válidos.");
+            Debug.Log("Por favor, ingresa numeros validos.");
         }
     }
 

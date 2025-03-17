@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0967443c12b5faf44a614b0ad62a3789
+guid: dfe5acfdec0894a4486eb1c33dfaaa67
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 5
+  spritePixelsToUnits: 33
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: vaca-Sheet_0
+      name: reset_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 369
-        height: 231
+        width: 31
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 952e12a1bcb98c349ab5712456211de2
-      internalID: -118432586
+      spriteID: 9f9cd9c351073b4458582ad2c6671740
+      internalID: 118533533
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: vaca-Sheet_1
+      name: reset_1
       rect:
         serializedVersion: 2
-        x: 369
+        x: 31
         y: 0
-        width: 369
-        height: 231
+        width: 31
+        height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,50 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2232060a97087624693793b6a3dc586e
-      internalID: -177981817
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vaca-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 738
-        y: 0
-        width: 369
-        height: 231
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7238a7a1e75cd6943b574225a7d154b9
-      internalID: 1513401776
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: vaca-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 1107
-        y: 0
-        width: 369
-        height: 231
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e8fececefa9076e44aa0d2ae854bd552
-      internalID: 666238389
+      spriteID: 5fa21b2dd2642054c975dc350deb00b1
+      internalID: 706570528
       vertices: []
       indices: 
       edges: []
@@ -191,10 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      vaca-Sheet_0: -118432586
-      vaca-Sheet_1: -177981817
-      vaca-Sheet_2: 1513401776
-      vaca-Sheet_3: 666238389
+      reset_0: 118533533
+      reset_1: 706570528
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

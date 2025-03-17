@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class VonNeumannUI : MonoBehaviour
+public class VonNeumannUI2 : MonoBehaviour
 {
     public TextMeshProUGUI CPUText;
     public TextMeshProUGUI MemoryText;
@@ -47,7 +47,7 @@ public class VonNeumannUI : MonoBehaviour
             return;
         }
 
-        if (pc >= memory.Length) return; // Detener si ya terminó
+        if (pc >= memory.Length) return; // Detener si ya terminï¿½
 
         // Guardar el paso actual antes de cambiarlo
         previousStep = step;
@@ -55,20 +55,20 @@ public class VonNeumannUI : MonoBehaviour
         switch (step)
         {
             case ExecutionStep.Fetch:
-                currentInstruction = memory[pc]; // Obtener instrucción
+                currentInstruction = memory[pc]; // Obtener instrucciï¿½n
                 operation = "FETCH";
                 step = ExecutionStep.Decode;
                 break;
 
             case ExecutionStep.Decode:
-                operation = $"DECODE ({currentInstruction})"; // Decodificar instrucción
+                operation = $"DECODE ({currentInstruction})"; // Decodificar instrucciï¿½n
                 step = ExecutionStep.Execute;
                 break;
 
             case ExecutionStep.Execute:
                 ExecuteInstruction(currentInstruction); // Ejecutar
                 step = ExecutionStep.Fetch;
-                pc++; // Mover al siguiente solo después de ejecutar
+                pc++; // Mover al siguiente solo despuï¿½s de ejecutar
                 break;
         }
 
@@ -86,7 +86,7 @@ public class VonNeumannUI : MonoBehaviour
         AddArrow.enabled = false;
         HaltArrow.enabled = false;
 
-        // Activar la flecha según el paso ANTERIOR
+        // Activar la flecha segï¿½n el paso ANTERIOR
         switch (previousStep)
         {
             case ExecutionStep.Fetch:
@@ -98,7 +98,7 @@ public class VonNeumannUI : MonoBehaviour
                 break;
 
             case ExecutionStep.Execute:
-                // Activar solo la flecha correspondiente a la instrucción anterior
+                // Activar solo la flecha correspondiente a la instrucciï¿½n anterior
                 switch (currentInstruction)
                 {
                     case "LOAD R1":
@@ -168,7 +168,7 @@ public class VonNeumannUI : MonoBehaviour
         }
         else
         {
-            Debug.Log("Por favor, ingresa números válidos.");
+            Debug.Log("Por favor, ingresa nï¿½meros vï¿½lidos.");
         }
     }
 
@@ -186,7 +186,7 @@ public class VonNeumannUI : MonoBehaviour
 
     void UpdateUI()
     {
-        CPUText.text = $"CPU\nContador: {pc}\nOperación: {operation}";
+        CPUText.text = $"CPU\nContador: {pc}\nOperaciï¿½n: {operation}";
         MemoryText.text = "Memoria:\n" + string.Join("\n", memory);
         AccumulatorText.text = $"Acumulador\nValor: {accumulator}";
     }

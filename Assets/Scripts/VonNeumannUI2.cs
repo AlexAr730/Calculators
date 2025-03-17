@@ -168,7 +168,7 @@ public class VonNeumannUI2 : MonoBehaviour
         }
         else
         {
-            Debug.Log("Por favor, ingresa n�meros v�lidos.");
+            Debug.Log("Por favor, ingresa nomeros validos.");
         }
     }
 
@@ -186,7 +186,7 @@ public class VonNeumannUI2 : MonoBehaviour
 
     void UpdateUI()
     {
-        CPUText.text = $"CPU\nContador: {pc}\nOperaci�n: {operation}";
+        CPUText.text = $"CPU\nContador: {pc}\nOperacion: {operation}";
         MemoryText.text = "Memoria:\n" + string.Join("\n", memory);
         AccumulatorText.text = $"Acumulador\nValor: {accumulator}";
     }

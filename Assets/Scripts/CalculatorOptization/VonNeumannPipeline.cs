@@ -119,11 +119,11 @@ public class VonNeumannPipeline : MonoBehaviour
             case "STORE ACC":
                 if (accumulator == inputPairs[0][0] + inputPairs[0][1]) // Primera suma (primer par)
                 {
-                    memory[3] = "RESULT 1 = " + accumulator; // Guardar el resultado del primer par
+                    memory[3] = "RESULT1= " + accumulator; // Guardar el resultado del primer par
                 }
                 else if (accumulator == inputPairs[1][0] + inputPairs[1][1]) // Segunda suma (segundo par)
                 {
-                    memory[7] = "RESULT 2 = " + accumulator; // Guardar el resultado del segundo par
+                    memory[7] = "RESULT2= " + accumulator; // Guardar el resultado del segundo par
                 }
                 break;
             case "HALT":

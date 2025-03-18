@@ -13,20 +13,20 @@ public class CalculatorSimulator : MonoBehaviour
     private string registroEntrada = "0000";  // Registro de Entrada (4 bits)
     private string acumulador = "00000000";  // Acumulador en binario (8 bits)
 
-    // Memoria (dirección de 4 bits -> contenido de 8 bits)
+    // Memoria (direccion de 4 bits -> contenido de 8 bits)
     private Dictionary<string, string> memoria = new Dictionary<string, string>
     {
-        { "0000", "00000100" },  // Instrucción: Sumar 4 (0000 0100)
-        { "0001", "00000101" },  // Instrucción: Sumar 5 (0000 0101)
-        { "0010", "01100110" },  // Instrucción: Guardar en memoria (0110 0000)
-        { "0011", "01110000" },  // Instrucción: Finalizar (0111 0000)
+        { "0000", "00000100" },  // Instruccion: Sumar 4 (0000 0100)
+        { "0001", "00000101" },  // Instruccion: Sumar 5 (0000 0101)
+        { "0010", "01100110" },  // Instruccion: Guardar en memoria (0110 0000)
+        { "0011", "01110000" },  // Instruccion: Finalizar (0111 0000)
         { "0100", "00001011" },  // Valor: 8 (0000 1000)
         { "0101", "00000100" },  // Valor: 10 (0000 1010)
-        { "0110", "00000000" },  // Dirección para guardar en memoria (inicialmente vacía)
-        { "0111", "00000000" }   // Dirección para finalizar (inicialmente vacía)
+        { "0110", "00000000" },  // Direccion para guardar en memoria (inicialmente vacoa)
+        { "0111", "00000000" }   // Direccion para finalizar (inicialmente vacoa)
     };
 
-    // Diccionario para mapear códigos de operación a nombres completos
+    // Diccionario para mapear codigos de operacion a nombres completos
     private Dictionary<string, string> codigosOperacion = new Dictionary<string, string>
     {
         { "0000", "Sumar" },
@@ -48,7 +48,7 @@ public class CalculatorSimulator : MonoBehaviour
     public TextMeshProUGUI acumuladorText;
     public TextMeshProUGUI mensajeText;
     public TextMeshProUGUI tablaMemoriaText;  // Para mostrar la tabla de memoria
-    public TextMeshProUGUI decodificadorText;  // Para mostrar la operación decodificada
+    public TextMeshProUGUI decodificadorText;  // Para mostrar la operacion decodificada
 
     // Referencias a las flechas
     public Image flechaContadorADirecciones; // Flecha entre Contador y Registro de Direcciones
@@ -70,7 +70,7 @@ public class CalculatorSimulator : MonoBehaviour
     private int pasoActual = 0;
     private bool programaFinalizado = false;
 
-    // Variables para almacenar el código de operación y el valor
+    // Variables para almacenar el codigo de operacion y el valor
     private string codigoOperacion;
     private string valor;
 
@@ -81,7 +81,7 @@ public class CalculatorSimulator : MonoBehaviour
         ReiniciarFlechas(); // Inicializar todas las flechas en rojo
     }
 
-    // Método para avanzar paso a paso
+    // Motodo para avanzar paso a paso
     public void SiguientePaso()
     {
         if (programaFinalizado)
@@ -97,7 +97,7 @@ public class CalculatorSimulator : MonoBehaviour
             case 0:
                 // Paso 1: Transferir el contenido del Contador de programa al Registro de direcciones
                 registroDirecciones = contadorPrograma;
-                mensajeText.text = $"Paso 1: Registro de Direcciones cargado con la dirección {registroDirecciones}";
+                mensajeText.text = $"Paso 1: Registro de Direcciones cargado con la direccion {registroDirecciones}";
                 flechaContadorADirecciones.sprite = flechaVerde; // Activar flecha
 
                 // Incrementar el contador de programa
@@ -107,57 +107,57 @@ public class CalculatorSimulator : MonoBehaviour
                 break;
 
             case 1:
-                // Paso 2: Leer la instrucción desde la memoria
+                // Paso 2: Leer la instruccion desde la memoria
                 registroDatos = memoria[registroDirecciones];
-                mensajeText.text = $"Paso 2: Memoria leyó el valor {registroDatos} desde la dirección {registroDirecciones}";
+                mensajeText.text = $"Paso 2: Memoria leyo el valor {registroDatos} desde la direccion {registroDirecciones}";
                 flechaDireccionesAMemoria.sprite = flechaVerde; // Activar flecha
                 flechaMemoriaADatos.sprite = flechaVerde; // Activar flecha
                 break;
 
             case 2:
-                // Paso 3: Transferir la instrucción al Registro de Instrucciones
+                // Paso 3: Transferir la instruccion al Registro de Instrucciones
                 registroInstrucciones = registroDatos;
-                mensajeText.text = $"Paso 3: Registro de Instrucciones cargado con la instrucción {registroInstrucciones}";
+                mensajeText.text = $"Paso 3: Registro de Instrucciones cargado con la instruccion {registroInstrucciones}";
                 flechaDatosAInstrucciones.sprite = flechaVerde; // Activar flecha
                 break;
 
             case 3:
-                // Paso 4: Decodificar la instrucción
+                // Paso 4: Decodificar la instruccion
                 codigoOperacion = registroInstrucciones.Substring(0, 4);
                 valor = registroInstrucciones.Substring(4, 4);
                 string nombreOperacion = DecodificarInstruccion(codigoOperacion);
-                mensajeText.text = $"Paso 4: Decodificador separó la instrucción -> Operación: {nombreOperacion}, Valor: {valor}";
-                decodificadorText.text = $"Operación: {nombreOperacion}";
+                mensajeText.text = $"Paso 4: Decodificador separo la instruccion -> Operacion: {nombreOperacion}, Valor: {valor}";
+                decodificadorText.text = $"Operacion: {nombreOperacion}";
                 flechaInstruccionesADecodificador.sprite = flechaVerde; // Activar flecha
 
                 if (codigoOperacion == "0111")  // Finalizar
                 {
                     programaFinalizado = true;
-                    mensajeText.text = "Paso 4: Decodificador detectó la instrucción de finalizar. Fin del programa.";
-                    decodificadorText.text = "Operación: Finalizar";
+                    mensajeText.text = "Paso 4: Decodificador detecto la instruccion de finalizar. Fin del programa.";
+                    decodificadorText.text = "Operacion: Finalizar";
                     pasoActual = 8; // Saltar al paso final
                 }
                 break;
 
             case 4:
-                // Paso 5: Transferir los últimos 4 bits al Registro de Direcciones
+                // Paso 5: Transferir los oltimos 4 bits al Registro de Direcciones
                 registroDirecciones = valor;
-                mensajeText.text = $"Paso 5: Registro de Direcciones cargado con la dirección {registroDirecciones}";
+                mensajeText.text = $"Paso 5: Registro de Direcciones cargado con la direccion {registroDirecciones}";
                 flechaInstruccionesADirecciones.sprite = flechaVerde; // Activar flecha
                 break;
 
             case 5:
                 if (codigoOperacion == "0110")  // Guardar en memoria
                 {
-                    // Paso 6: Leer la tabla de memoria usando la nueva dirección
-                    mensajeText.text = $"Paso 6: Memoria leyó la dirección {registroDirecciones}";
+                    // Paso 6: Leer la tabla de memoria usando la nueva direccion
+                    mensajeText.text = $"Paso 6: Memoria leyo la direccion {registroDirecciones}";
                     flechaDireccionesAMemoria.sprite = flechaVerde; // Activar flecha
                 }
                 else
                 {
-                    // Paso 6: Leer la tabla de memoria usando la nueva dirección
+                    // Paso 6: Leer la tabla de memoria usando la nueva direccion
                     registroDatos = memoria[registroDirecciones];
-                    mensajeText.text = $"Paso 6: Memoria leyó el valor {registroDatos} desde la dirección {registroDirecciones}";
+                    mensajeText.text = $"Paso 6: Memoria leyo el valor {registroDatos} desde la direccion {registroDirecciones}";
                     flechaDireccionesAMemoria.sprite = flechaVerde; // Activar flecha
                     flechaMemoriaADatos.sprite = flechaVerde; // Activar flecha
                 }
@@ -169,7 +169,7 @@ public class CalculatorSimulator : MonoBehaviour
                     // Paso 7: Guardar el valor del Acumulador en la memoria
                     registroDatos = acumulador; // Transferir el valor del Acumulador al Registro de Datos
                     memoria[registroDirecciones] = registroDatos; // Guardar en la memoria
-                    mensajeText.text = $"Paso 7: Acumulador guardó el valor {acumulador} en la dirección {registroDirecciones}";
+                    mensajeText.text = $"Paso 7: Acumulador guardo el valor {acumulador} en la direccion {registroDirecciones}";
                     flechaAcumuladorADatos.sprite = flechaVerde; // Activar flecha
                     flechaDatosAMemoria.sprite = flechaVerde; // Activar flecha
                     ActualizarTablaMemoria();
@@ -177,26 +177,26 @@ public class CalculatorSimulator : MonoBehaviour
                 else
                 {
                     // Paso 7: Transferir el valor del Registro de Datos al Registro de Entrada
-                    registroEntrada = registroDatos.Substring(4, 4); // Tomar los últimos 4 bits
+                    registroEntrada = registroDatos.Substring(4, 4); // Tomar los oltimos 4 bits
                     mensajeText.text = $"Paso 7: Registro de Entrada cargado con el valor {registroEntrada}";
                     flechaDatosAEntrada.sprite = flechaVerde; // Activar flecha
                 }
                 break;
 
             case 7:
-                // Paso 8: Realizar la operación en el Acumulador
+                // Paso 8: Realizar la operacion en el Acumulador
                 int valorEntero = System.Convert.ToInt32(registroEntrada, 2); // Convertir el valor de entrada a decimal
                 int acumuladorDecimal = System.Convert.ToInt32(acumulador, 2); // Convertir el acumulador a decimal
 
                 if (codigoOperacion == "0000")  // Suma
                 {
                     acumuladorDecimal += valorEntero; // Realizar la suma
-                    mensajeText.text = $"Paso 8: Acumulador sumó {valorEntero}. Ahora tiene {acumuladorDecimal}";
+                    mensajeText.text = $"Paso 8: Acumulador sumo {valorEntero}. Ahora tiene {acumuladorDecimal}";
                 }
                 else if (codigoOperacion == "0001")  // Resta
                 {
                     acumuladorDecimal -= valorEntero; // Realizar la resta
-                    mensajeText.text = $"Paso 8: Acumulador restó {valorEntero}. Ahora tiene {acumuladorDecimal}";
+                    mensajeText.text = $"Paso 8: Acumulador resto {valorEntero}. Ahora tiene {acumuladorDecimal}";
                 }
 
                 acumulador = System.Convert.ToString(acumuladorDecimal, 2).PadLeft(8, '0'); // Convertir de nuevo a binario
@@ -204,8 +204,8 @@ public class CalculatorSimulator : MonoBehaviour
                 break;
 
             case 8:
-                // Reiniciar para la siguiente instrucción
-                pasoActual = -1;  // Reiniciar para la siguiente instrucción
+                // Reiniciar para la siguiente instruccion
+                pasoActual = -1;  // Reiniciar para la siguiente instruccion
                 break;
         }
 
@@ -216,7 +216,7 @@ public class CalculatorSimulator : MonoBehaviour
         ActualizarUI();
     }
 
-    // Método para reiniciar el ciclo
+    // Motodo para reiniciar el ciclo
     public void ReiniciarCiclo()
     {
         // Reiniciar registros y contador
@@ -228,8 +228,8 @@ public class CalculatorSimulator : MonoBehaviour
         acumulador = "00000000";
 
         // Reiniciar memoria
-        memoria["0110"] = "00000000"; // Reiniciar dirección de guardar en memoria
-        memoria["0111"] = "00000000"; // Reiniciar dirección de finalizar
+        memoria["0110"] = "00000000"; // Reiniciar direccion de guardar en memoria
+        memoria["0111"] = "00000000"; // Reiniciar direccion de finalizar
 
         // Reiniciar variables de control
         pasoActual = 0;
@@ -244,7 +244,7 @@ public class CalculatorSimulator : MonoBehaviour
         mensajeText.text = "Ciclo reiniciado.";
     }
 
-    // Método para reiniciar todas las flechas a rojo
+    // Motodo para reiniciar todas las flechas a rojo
     private void ReiniciarFlechas()
     {
         flechaContadorADirecciones.sprite = flechaRoja;
@@ -259,7 +259,7 @@ public class CalculatorSimulator : MonoBehaviour
         flechaAcumuladorADatos.sprite = flechaRoja;
     }
 
-    // Método para decodificar la instrucción
+    // Motodo para decodificar la instruccion
     private string DecodificarInstruccion(string codigoOperacion)
     {
         if (codigosOperacion.ContainsKey(codigoOperacion))
@@ -269,7 +269,7 @@ public class CalculatorSimulator : MonoBehaviour
         return "Desconocido";
     }
 
-    // Método para actualizar la interfaz de usuario
+    // Motodo para actualizar la interfaz de usuario
     private void ActualizarUI()
     {
         contadorProgramaText.text = $"Contador de Programa: {contadorPrograma}";
@@ -280,11 +280,11 @@ public class CalculatorSimulator : MonoBehaviour
         acumuladorText.text = $"Acumulador: {acumulador}";
     }
 
-    // Método para actualizar la tabla de memoria en la UI
+    // Motodo para actualizar la tabla de memoria en la UI
     private void ActualizarTablaMemoria()
     {
         string tabla = "Tabla de Memoria:\n";
-        tabla += "Dirección | Contenido\n";
+        tabla += "Direccion | Contenido\n";
         tabla += "-------------------\n";
         foreach (var item in memoria)
         {

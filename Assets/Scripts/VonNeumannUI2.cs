@@ -7,8 +7,10 @@ public class VonNeumannUI2 : MonoBehaviour
     public TextMeshProUGUI CPUText;
     public TextMeshProUGUI MemoryText;
     public TextMeshProUGUI AccumulatorText;
-    public TMP_InputField InputNumber1;
-    public TMP_InputField InputNumber2;
+
+    private string InputNumber1;
+    private string InputNumber2;
+
     public Button NextStepButton;
     public Button ResetButton;
 
@@ -18,6 +20,7 @@ public class VonNeumannUI2 : MonoBehaviour
     public Image LoadArrow;
     public Image AddArrow;
     public Image HaltArrow;
+    public Image StorageArrow;
 
 
     private int pc = 0;
@@ -37,7 +40,15 @@ public class VonNeumannUI2 : MonoBehaviour
         ResetExecution();
         NextStepButton.onClick.AddListener(AdvanceStep);
         ResetButton.onClick.AddListener(ResetExecution);
+
     }
+    void Update()
+    {
+        Control control = GetComponent<Control>();
+        InputNumber1 = control.numero1;
+        InputNumber2 = control.numero2;   
+    }
+
 
     void AdvanceStep()
     {
@@ -85,6 +96,7 @@ public class VonNeumannUI2 : MonoBehaviour
         LoadArrow.enabled = false;
         AddArrow.enabled = false;
         HaltArrow.enabled = false;
+        StorageArrow.enabled = false;
 
         // Activar la flecha seg�n el paso ANTERIOR
         switch (previousStep)
@@ -112,7 +124,7 @@ public class VonNeumannUI2 : MonoBehaviour
                         AddArrow.enabled = true;
                         break;
                     case "STORE ACC":
-                        LoadArrow.enabled = true;
+                        StorageArrow.enabled = true;
                         AddArrow.enabled = true;
                         break;
                     case "HALT":
@@ -153,7 +165,10 @@ public class VonNeumannUI2 : MonoBehaviour
     //Se leen los numeros insertados en el field y se carga memoria
     void ReadNumbers()
     {
-        if (int.TryParse(InputNumber1.text, out number1) && int.TryParse(InputNumber2.text, out number2))
+
+
+
+        if (int.TryParse(InputNumber1, out number1) && int.TryParse(InputNumber2, out number2))
         {
             memory = new string[]
             {
@@ -178,8 +193,8 @@ public class VonNeumannUI2 : MonoBehaviour
         accumulator = 0;
         operation = "None";
         memory = new string[5] { "?", "?", "?", "?", "?" };
-        InputNumber1.text = "";
-        InputNumber2.text = "";
+        InputNumber1 = "";
+        InputNumber2 = "";
         numbersLoaded = false;
         UpdateUI();
     }
@@ -188,6 +203,6 @@ public class VonNeumannUI2 : MonoBehaviour
     {
         CPUText.text = $"CPU\nContador: {pc}\nOperacion: {operation}";
         MemoryText.text = "Memoria:\n" + string.Join("\n", memory);
-        AccumulatorText.text = $"Acumulador\nValor: {accumulator}";
+        AccumulatorText.text = $"{accumulator}";
     }
 }

@@ -7,8 +7,10 @@ public class VonNeumannPipeline : MonoBehaviour
     public TextMeshProUGUI CPUText;
     public TextMeshProUGUI MemoryText;
     public TextMeshProUGUI AccumulatorText;
-    public TMP_InputField InputNumber1;
-    public TMP_InputField InputNumber2;
+
+    private string InputNumber1;
+    private string InputNumber2;
+
     public Button NextStepButton;
     public Button ResetButton;
 
@@ -17,6 +19,7 @@ public class VonNeumannPipeline : MonoBehaviour
     public Image LoadArrow;
     public Image AddArrow;
     public Image HaltArrow;
+    public Image StorageArrow;
 
     private int pc = 0; // Contador de programa
     private int accumulator = 0; // Acumulador
@@ -35,6 +38,13 @@ public class VonNeumannPipeline : MonoBehaviour
         ResetExecution();
         NextStepButton.onClick.AddListener(AdvancePipeline);
         ResetButton.onClick.AddListener(ResetExecution);
+    }
+
+    void Update()
+    {
+        Control control = GetComponent<Control>();
+        InputNumber1 = control.numero1;
+        InputNumber2 = control.numero2;   
     }
 
     void AdvancePipeline()
@@ -125,7 +135,7 @@ public class VonNeumannPipeline : MonoBehaviour
 
     void ReadNumbers()
     {
-        if (int.TryParse(InputNumber1.text, out int n1) && int.TryParse(InputNumber2.text, out int n2))
+        if (int.TryParse(InputNumber1, out int n1) && int.TryParse(InputNumber2, out int n2))
         {
             inputPairs = new int[2][]
             {
@@ -179,16 +189,16 @@ public class VonNeumannPipeline : MonoBehaviour
         pipelineInstructions = new string[3];
         cycle = 0;
         isHalted = false; // Reiniciar el estado de HALT
-        InputNumber1.text = "";
-        InputNumber2.text = "";
+        InputNumber1 = "";
+        InputNumber2 = "";
         UpdateUI();
     }
 
     void UpdateUI()
     {
-        CPUText.text = $"CPU\nCiclo: {cycle}\nAcumulador: {accumulator}";
-        MemoryText.text = "Memoria:\n" + string.Join("\n", memory);
-        AccumulatorText.text = $"Acumulador\nValor: {accumulator}";
+        CPUText.text = $"CPU\nCiclo: {cycle}";
+        MemoryText.text =  string.Join("\n", memory);
+        AccumulatorText.text = $"{accumulator}";
     }
 
     void UpdateArrows()
@@ -198,6 +208,7 @@ public class VonNeumannPipeline : MonoBehaviour
         LoadArrow.enabled = false;
         AddArrow.enabled = false;
         HaltArrow.enabled = false;
+        StorageArrow.enabled = false;
 
         for (int i = 0; i < pipelineSteps.Length; i++)
         {
@@ -224,7 +235,7 @@ public class VonNeumannPipeline : MonoBehaviour
                             AddArrow.enabled = true;
                             break;
                         case "STORE ACC":
-                            LoadArrow.enabled = true; // Activar la flecha de STORE
+                            StorageArrow.enabled = true; // Activar la flecha de STORE
                             break;
                         case "HALT":
                             HaltArrow.enabled = true;

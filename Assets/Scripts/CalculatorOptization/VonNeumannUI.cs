@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class VonNeumannUI : MonoBehaviour
 {
+    //Se declaran todas las variables respectivas al UI
+    [Header("Interfaz variables")]
     public TextMeshProUGUI CPUText;
     public TextMeshProUGUI MemoryText;
     public TextMeshProUGUI AccumulatorText;
@@ -12,14 +14,15 @@ public class VonNeumannUI : MonoBehaviour
     public Button NextStepButton;
     public Button ResetButton;
 
-
+    //Se declaran todas las variables respectivas a las flechas
+    [Header("Flechas")]
     public Image FetchArrow;
     public Image DecodeArrow;
     public Image LoadArrow;
     public Image AddArrow;
     public Image HaltArrow;
 
-
+    //Se declaran todas las variables necesarias para el funcionamiento
     private int pc = 0;
     private int accumulator = 0;
     private string operation = "None";
@@ -32,6 +35,7 @@ public class VonNeumannUI : MonoBehaviour
     private string currentInstruction = "";
     private ExecutionStep previousStep = ExecutionStep.Fetch;
 
+    //Carga las funciones y los botones
     void Start()
     {
         ResetExecution();
@@ -39,8 +43,10 @@ public class VonNeumannUI : MonoBehaviour
         ResetButton.onClick.AddListener(ResetExecution);
     }
 
+    //Funcion que se usa con el boton de siguiente, tras presioanrlo pasa al siguiente paso
     void AdvanceStep()
     {
+        //Lee los numeros que se mandan en la calculadora
         if (!numbersLoaded)
         {
             ReadNumbers();
@@ -52,12 +58,13 @@ public class VonNeumannUI : MonoBehaviour
         // Guardar el paso actual antes de cambiarlo
         previousStep = step;
 
+        //Aqui se encuentran los estados y la operacion correspondiente
         switch (step)
         {
             case ExecutionStep.Fetch:
                 currentInstruction = memory[pc]; // Obtener instrucci�n
-                operation = "FETCH";
-                step = ExecutionStep.Decode;
+                operation = "FETCH";//se define la operacion
+                step = ExecutionStep.Decode;//Guarda el siguiente paso
                 break;
 
             case ExecutionStep.Decode:
@@ -72,8 +79,8 @@ public class VonNeumannUI : MonoBehaviour
                 break;
         }
 
-        UpdateUI();
-        UpdateArrows();
+        UpdateUI();//Actualiza la Ui luego de que ocurre el paso
+        UpdateArrows();//Actualiza las flechas luego de que ocurre el paso
     }
 
 
@@ -123,9 +130,10 @@ public class VonNeumannUI : MonoBehaviour
         }
     }
 
-
+    //Funcion que define los pasos del sistema 
     void ExecuteInstruction(string instruction)
     {
+        //Switch que contiene todos los pasos y almacena el sisguiente
         switch (instruction)
         {
             case "LOAD R1":
@@ -155,6 +163,7 @@ public class VonNeumannUI : MonoBehaviour
     {
         if (int.TryParse(InputNumber1.text, out number1) && int.TryParse(InputNumber2.text, out number2))
         {
+            //Memoria usada durante la ejecucion del programa
             memory = new string[]
             {
                 "LOAD R1",
@@ -172,6 +181,7 @@ public class VonNeumannUI : MonoBehaviour
         }
     }
 
+    //Funcion que se llama al presionar el boton de reiniciar, retornando todas las variables a 0 o su estado inicial
     void ResetExecution()
     {
         pc = 0;
@@ -184,6 +194,7 @@ public class VonNeumannUI : MonoBehaviour
         UpdateUI();
     }
 
+    //Funcion usada para actualizar el UI
     void UpdateUI()
     {
         CPUText.text = $"CPU\nContador: {pc}\nOperacion: {operation}";

@@ -4,16 +4,16 @@ using UnityEngine.UI;
 
 public class VonNeumannPipeline : MonoBehaviour
 {
+    //Se declaran todas las variables respectivas al UI
+    [Header("Interfaz variables")]
     public TextMeshProUGUI CPUText;
     public TextMeshProUGUI MemoryText;
     public TextMeshProUGUI AccumulatorText;
-
-    private string InputNumber1;
-    private string InputNumber2;
-
     public Button NextStepButton;
     public Button ResetButton;
 
+    //Se declaran todas las variables respectivas a las flechas
+    [Header("Flechas")]
     public Image FetchArrow;
     public Image DecodeArrow;
     public Image LoadArrow;
@@ -21,18 +21,21 @@ public class VonNeumannPipeline : MonoBehaviour
     public Image HaltArrow;
     public Image StorageArrow;
 
+    //Se declaran todas las variables necesarias para el funcionamiento
     private int pc = 0; // Contador de programa
     private int accumulator = 0; // Acumulador
     private string[] memory; // Memoria de instrucciones
     private bool numbersLoaded = false; // Indica si los n�meros se han cargado
     private int[][] inputPairs; // Pares de n�meros para las operaciones
-
+    private string InputNumber1;
+    private string InputNumber2;
     private enum ExecutionStep { Fetch, Decode, Execute, Done }
     private ExecutionStep[] pipelineSteps; // Estado de cada instrucci�n en el pipeline
     private string[] pipelineInstructions; // Instrucciones en el pipeline
     private int cycle = 0; // Ciclo actual del pipeline
     private bool isHalted = false; // Indica si el programa ha terminado
 
+    //Carga las funciones y los botones
     void Start()
     {
         ResetExecution();
@@ -40,6 +43,7 @@ public class VonNeumannPipeline : MonoBehaviour
         ResetButton.onClick.AddListener(ResetExecution);
     }
 
+    //Carga los numero mandados desde la calculadora
     void Update()
     {
         Control control = GetComponent<Control>();
@@ -47,6 +51,7 @@ public class VonNeumannPipeline : MonoBehaviour
         InputNumber2 = control.numero2;   
     }
 
+    //Funcion que se usa con el boton de siguiente, tras presioanrlo pasa al siguiente paso
     void AdvancePipeline()
     {
         if (isHalted) // Si el programa ha terminado, no avanzar
@@ -54,7 +59,7 @@ public class VonNeumannPipeline : MonoBehaviour
             Debug.Log("El programa ha terminado. Presiona Reset para reiniciar.");
             return;
         }
-
+        //Lee los numeros que se mandan en la calculadora
         if (!numbersLoaded)
         {
             ReadNumbers();
@@ -89,11 +94,12 @@ public class VonNeumannPipeline : MonoBehaviour
             pc++;
         }
 
-        cycle++;
-        UpdateUI();
-        UpdateArrows();
+        cycle++;//Aumenta los ciclos por siguiente
+        UpdateUI();//Actualiza la Ui luego de que ocurre el paso
+        UpdateArrows();//Actualiza las flechas luego de que ocurre el paso
     }
 
+    //Funcion que define los pasos del sistema 
     void ExecuteInstruction(string instruction, int index)
     {
         switch (instruction)
@@ -133,16 +139,18 @@ public class VonNeumannPipeline : MonoBehaviour
         }
     }
 
+    //Se leen los numeros insertados en el field y se carga memoria
     void ReadNumbers()
     {
         if (int.TryParse(InputNumber1, out int n1) && int.TryParse(InputNumber2, out int n2))
         {
+            //Se toma R3 como el primer numero +1 y R4 el segundo numero +1
             inputPairs = new int[2][]
             {
                 new int[] { n1, n2 },         // Primer par
                 new int[] { n1 + 1, n2 + 1 }  // Segundo par
             };
-
+            //Memoria usada durante la ejecucion del programa
             memory = new string[]
             {
                 "LOAD R1",
@@ -159,14 +167,14 @@ public class VonNeumannPipeline : MonoBehaviour
             pipelineSteps = new ExecutionStep[3]; // Pipeline de 3 etapas
             pipelineInstructions = new string[3]; // Instrucciones en el pipeline
             numbersLoaded = true;
-            UpdateUI();
+            UpdateUI();//Actualiza el UI
         }
         else
         {
             Debug.Log("Por favor, ingresa numeros validos.");
         }
     }
-
+    //Funcion que se llama al presionar el boton de reiniciar, retornando todas las variables a 0 o su estado inicial
     void ResetExecution()
     {
         pc = 0;
@@ -193,16 +201,17 @@ public class VonNeumannPipeline : MonoBehaviour
         InputNumber2 = "";
         UpdateUI();
     }
-
+    //Funcion usada para actualizar el UI
     void UpdateUI()
     {
         CPUText.text = $"CPU\nCiclo: {cycle}";
         MemoryText.text =  string.Join("\n", memory);
         AccumulatorText.text = $"{accumulator}";
     }
-
+    //Funcion que actualiza las UI de las flechas
     void UpdateArrows()
     {
+        //Se inicializan las flechas en false
         FetchArrow.enabled = false;
         DecodeArrow.enabled = false;
         LoadArrow.enabled = false;
